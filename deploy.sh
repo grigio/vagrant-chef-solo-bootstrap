@@ -1,7 +1,7 @@
 #!/bin/bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Usage: ./deploy.sh (HOST|vagrant)
-
 : ${1?"Usage: $0 HOST"}
 host="$1"
 port="22"
@@ -10,7 +10,7 @@ key_opt=""
 if [[ $host == "vagrant" ]]; then
   host="vagrant@127.0.0.1"
   port="2222"
-  key_opt="-i /Users/charlesstrahan/.vagrant.d/insecure_private_key"
+  key_opt="-i $HOME/.vagrant.d/insecure_private_key"
 fi
 
 # The host key might change when we instantiate a new VM, so
