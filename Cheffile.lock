@@ -16,7 +16,13 @@ GIT
   specs:
     rvm (0.9.0)
 
+PATH
+  remote: vendor/cookbooks/chattin
+  specs:
+    chattin (0.0.1)
+
 DEPENDENCIES
+  chattin (>= 0)
   mysql (= 1.2.6)
   rvm (>= 0)
 
