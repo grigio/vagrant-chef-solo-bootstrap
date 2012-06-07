@@ -4,15 +4,15 @@
     "server_repl_password":   "iloverandompasswordsbutthiswilldo",
     "server_debian_password": "iloverandompasswordsbutthiswilldo"
   },
+  "rvm": {
+    "rubies": [
+      "ruby-1.9.3-p194"
+    ]
+  },
   "run_list": [
-    "recipe[rvm::system_install]",
+    "recipe[rvm::system]",
     "recipe[chattin]",
     "recipe[mysql::server]",
     "recipe[mysql::client]"
-  ],
-  "rvm": {
-    "rubies": [
-      "1.9.3"
-    ]
-  }
+  ]
 }
