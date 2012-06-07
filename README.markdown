@@ -34,8 +34,9 @@ $ vagrant box add base http://files.vagrantup.com/precise32.box
 $ vagrant up
 ```
 
-Vagrant will automatically execute the chef recipes listed in `solo.json`. To
-manually run the chef recipes:
+Vagrant will automatically execute the chef recipes listed in `solo.json` each
+time you run `vagrant up`. To manually run the chef recipes while the VM
+is still running:
 
 ```
 $ vagrant provision
