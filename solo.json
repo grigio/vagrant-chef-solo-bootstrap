@@ -1,8 +1,18 @@
 {
-    "run_list": [
-        "recipe[pferdefleisch]", 
-        "recipe[mongodb]", 
-        "recipe[mongodb::server]"
-    ],
-    "user": "aaron"
+  "mysql": {
+    "server_root_password":   "iloverandompasswordsbutthiswilldo",
+    "server_repl_password":   "iloverandompasswordsbutthiswilldo",
+    "server_debian_password": "iloverandompasswordsbutthiswilldo"
+  },
+  "run_list": [
+    "recipe[rvm::system_install]",
+    "recipe[chattin]",
+    "recipe[mysql::server]",
+    "recipe[mysql::client]"
+  ],
+  "rvm": {
+    "rubies": [
+      "1.9.3"
+    ]
+  }
 }
