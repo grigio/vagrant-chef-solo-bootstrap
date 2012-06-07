@@ -1,9 +1,28 @@
-bootstrap files borrowed (stolen) from this tutorial  
-[Chef Solo tutorial](http://opinionatedprogrammer.com/2011/06/chef-solo-tutorial-managing-a-single-server-with-chef/#comment-910)
+# About
 
-If you are using this and you would like features added, create an issue or pull request (preferrably on a topic branch you have created in your fork)
+This is our Chattin deployment chef config.
 
-#### Todo
+# Deploying
 
-* rbenv and ruby 1.9.3+
-* zsh, maybe with my .oh-my-zsh repo
+Run the following command (substitue `HOST` with a valid IP address or FQDN)
+
+```
+$ ./deploy.sh HOST
+```
+
+# Testing in Vagrant VM
+
+Run the following command to download the requisite VM image and start
+vagrant:
+
+```
+$ vagrant box add base http://files.vagrantup.com/precise32.box
+$ vagrant up
+```
+
+Vagrant will automatically execute the chef recipes listed in `solo.json`. To
+manually run the chef recipes:
+
+```
+$ vagrant provision
+```
