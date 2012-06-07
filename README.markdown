@@ -18,11 +18,17 @@ when you run `librarian-chef install`!!!
 
 # Deploying
 
-Run the following command (substitute `HOST` with a valid IP address or FQDN)
+Run the following command (substitute `user@example.com`):
 
 ```
-$ ./deploy.sh HOST
+$ ./deploy.sh user@example.com
 ```
+
+On the first run, this will fully upgrade the server and then install ruby and
+chef.
+
+To test the deploy script against the Vagrant VM, use `./deploy.sh
+vagrant`.
 
 # Testing in Vagrant VM
 
