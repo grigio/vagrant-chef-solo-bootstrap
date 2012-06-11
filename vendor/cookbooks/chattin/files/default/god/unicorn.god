@@ -6,6 +6,9 @@ rails_env = ENV['RAILS_ENV'] || ENV['RACK_ENV'] || 'production'
 
 apps = [
   'chattin-frontend',
+  'chattin-presentations',
+  'chattin-comments',
+  'chattin-users',
 ]
 
 apps.each do |app_name|

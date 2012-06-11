@@ -17,6 +17,8 @@ fi
 # we remove (-R) the old host key from known_hosts
 ssh-keygen -R "${host#*@}" 2> /dev/null
 
+librarian-chef install
+
 tar cj --exclude="tmp" --exclude="vendor" --exclude=".git" . |
   ssh -p "$port" -o 'StrictHostKeyChecking no' $key_opt "$host" \
    'sudo rm -rf ~/chef &&

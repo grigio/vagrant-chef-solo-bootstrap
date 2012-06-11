@@ -8,6 +8,10 @@ class Default < Thor
     puts remote_bash "vagrant@vagrant", <<-CODE
       shopt -s nullglob
 
+      sudo god stop unicorns
+      sleep 1
+      sudo stop god
+
       sudo rm -rf ~deployer/apps/
       sudo mkdir -p ~deployer/apps/
       for app in /vagrant/apps/* ; do
@@ -16,8 +20,6 @@ class Default < Thor
       done
       sudo chown -R deployer:deployer ~deployer/apps
 
-      sudo god stop unicorns
-      sudo stop god
       sudo start god
       sudo /etc/init.d/nginx restart
     CODE
@@ -33,6 +35,7 @@ class Default < Thor
       for app in ~deployer/apps/* ; do
         cd $app
         bundle install --deployment --binstubs
+        RACK_ENV=production bundle exec rake db:migrate
       done
     CODE
   end
