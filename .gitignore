@@ -1,3 +1,4 @@
-.vagrant
+/apps
 /cookbooks
+.vagrant
 tmp

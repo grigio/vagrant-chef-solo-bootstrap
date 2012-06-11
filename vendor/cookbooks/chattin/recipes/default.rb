@@ -31,3 +31,45 @@ end
     action :install
   end
 end
+
+package "nginx" do
+  action :install
+end
+
+cookbook_file "/etc/nginx/nginx.conf" do
+  source "nginx.conf"
+end
+
+# To create a shadow password, see:
+#   http://stackoverflow.com/questions/9043017/
+#   http://stackoverflow.com/questions/5171487/
+user "deployer" do
+  comment  "The web/deployment user."
+  shell    "/bin/bash"
+  supports :manage_home => true
+end
+
+# Manage SSH keys
+ruby_block "public_keys" do
+  block do
+    require 'shellwords'
+    users = ["root", "deployer"]
+    cmds = []
+    users.map do |user|
+      cmds << "mkdir -p ~#{user}/.ssh"
+      node["chattin"]["public_keys"].each do |key|
+        cmds << "grep #{key.shellescape} ~#{user}/.ssh/authorized_keys || " +
+          "echo #{key.shellescape} >> ~#{user}/.ssh/authorized_keys"
+      end
+      cmds << "chown -R #{user}:#{user} ~#{user}"
+      Chef::ShellOut.new(cmds.join("\n")).run_command
+    end
+  end
+end
+
+file "/etc/profile.d/jdk.sh" do
+  content <<-EOS
+    export JAVA_HOME=#{node['java']["java_home"]}
+  EOS
+  mode 0755
+end

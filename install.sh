@@ -1,5 +1,5 @@
 #!/bin/bash
- 
+
 # This runs as root on the server
 
 chef_binary=/usr/local/bin/chef-solo
@@ -9,8 +9,8 @@ if ! test -f "$chef_binary"; then
     export DEBIAN_FRONTEND=noninteractive
     # Upgrade headlessly (this is only safe-ish on vanilla systems)
     aptitude update &&
-    apt-get -o Dpkg::Options::="--force-confnew" \
-      --force-yes -fuy dist-upgrade &&
+    #apt-get -o Dpkg::Options::="--force-confnew" \
+    #  --force-yes -fuy dist-upgrade &&
     # Install Ruby and Chef
     aptitude install -y \
       ruby1.9.1 ruby1.9.1-dev build-essential make automake autoconf \

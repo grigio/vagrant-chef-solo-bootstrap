@@ -17,9 +17,10 @@ fi
 # we remove (-R) the old host key from known_hosts
 ssh-keygen -R "${host#*@}" 2> /dev/null
 
-tar cj . | ssh -p "$port" -o 'StrictHostKeyChecking no' $key_opt "$host" '
-sudo rm -rf ~/chef &&
-mkdir ~/chef &&
-cd ~/chef &&
-tar xj &&
-sudo bash install.sh'
+tar cj --exclude="tmp" --exclude="vendor" --exclude=".git" . |
+  ssh -p "$port" -o 'StrictHostKeyChecking no' $key_opt "$host" \
+   'sudo rm -rf ~/chef &&
+    mkdir ~/chef &&
+    cd ~/chef &&
+    tar xj &&
+    sudo bash install.sh'
