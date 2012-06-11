@@ -12,11 +12,10 @@ class Default < Thor
       sleep 1
       sudo stop god
 
-      sudo rm -rf ~deployer/apps/
       sudo mkdir -p ~deployer/apps/
       for app in /vagrant/apps/* ; do
         app=`basename $app`
-        sudo cp -R /vagrant/apps/$app ~deployer/apps/$app
+        sudo cp -af /vagrant/apps/$app ~deployer/apps/
       done
       sudo chown -R deployer:deployer ~deployer/apps
 
