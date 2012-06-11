@@ -39,6 +39,19 @@ class Default < Thor
     CODE
   end
 
+  desc "restart", "restart nginx & unicorn"
+  def restart
+    puts remote_bash "vagrant@vagrant", <<-CODE
+      shopt -s nullglob
+
+      sudo god stop unicorns
+      sleep 1
+      sudo stop god
+      sudo start god
+      sudo /etc/init.d/nginx restart
+    CODE
+  end
+
   desc "ssh HOST", "connect via ssh"
   def ssh(host)
     exec ssh_code(host)

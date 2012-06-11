@@ -10,6 +10,7 @@ Vagrant::Config.run do |config|
   config.vm.forward_port 22,   2222
   config.vm.forward_port 80,   8080
   config.vm.forward_port 3000, 3030
+  config.vm.forward_port 9999, 9999
   config.vm.network :hostonly, "22.22.22.22"
 
   #config.vm.provision :chef_solo do |chef|
