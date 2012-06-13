@@ -18,7 +18,7 @@ remote_bash deployer@vagrant '
     info "prepping $app"
     cd $app
     bundle install --deployment --binstubs
-    RACK_ENV=production bundle exec rake db:migrate
+    RACK_ENV=development bundle exec rake db:migrate
   done
 '
 script/restart vagrant
