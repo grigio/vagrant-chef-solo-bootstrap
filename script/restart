@@ -9,9 +9,11 @@ remote_bash "$host" '
   info "stopping unicorns"
   sudo god stop unicorns
   sleep 1
+
   info "restarting god"
   sudo stop god
   sudo start god
+
   info "restarting nginx"
   sudo /etc/init.d/nginx restart
 '

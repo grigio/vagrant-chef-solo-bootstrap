@@ -1,0 +1,24 @@
+#!/bin/bash
+source "$( dirname "${BASH_SOURCE[0]}" )/lib/all.sh"
+
+script/env vagrant RACK_ENV development
+remote_bash deployer@vagrant '
+  rm ~deployer/apps || rm -rf ~deployer/apps
+  ln -vsFf /vagrant/apps ~deployer
+
+  info "loading rvm"
+  rvm_trust_rvmrcs_flag=1
+  if [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
+    source "/usr/local/rvm/scripts/rvm"
+  fi
+
+  info "prepping apps"
+  shopt -s nullglob
+  for app in ~deployer/apps/* ; do
+    info "prepping $app"
+    cd $app
+    bundle install --deployment --binstubs
+    RACK_ENV=production bundle exec rake db:migrate
+  done
+'
+script/restart vagrant

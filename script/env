@@ -5,8 +5,8 @@ host="$1"
 var="$2"
 val="$3"
 
-info "setting $var to $val"
 remote_bash "$host" \
   "var=$var" \
   "val=$val" \
-  '/etc/profile.d/env.rb set "$var" "$val"'
+  'info "setting $var to $val"' \
+  'sudo /etc/profile.d/env.rb set "$var" "$val"'
