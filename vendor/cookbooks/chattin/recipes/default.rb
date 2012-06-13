@@ -32,6 +32,16 @@ end
   end
 end
 
+cookbook_file "/etc/profile.d/env.rb" do
+  source "env.rb"
+  mode 0755
+end
+
+cookbook_file "/etc/profile.d/env.sh" do
+  source "env.sh"
+  mode 0755
+end
+
 package "nginx" do
   action :install
 end

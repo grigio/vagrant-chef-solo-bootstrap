@@ -1,0 +1,19 @@
+#!/bin/bash
+source "$( dirname "${BASH_SOURCE[0]}" )/lib/all.sh"
+
+# Usage: ./deploy.sh (HOST|vagrant)
+: ${1?"Usage: $0 HOST"}
+host=$1
+
+info "downloading cookbooks"
+librarian-chef install
+
+info "provisioning - cross your fingers, bro!"
+tar cj --exclude="tmp" --exclude="vendor" --exclude=".git" . |
+  remote_bash "$host" '
+    sudo rm -rf ~/chef &&
+    mkdir ~/chef &&
+    cd ~/chef &&
+    tar xj &&
+    sudo bash install.sh
+  '

@@ -1,0 +1,28 @@
+#!/bin/bash
+source "$( dirname "${BASH_SOURCE[0]}" )/lib/all.sh"
+host=$1
+
+tar cj apps |
+  remote_bash "$host" '
+    info "deleting ~deployer/apps"
+    rm -rf ~deployer/apps &&
+
+    info "untaring apps into ~deployer" &&
+    cd ~deployer &&
+    tar xj
+
+    info "loading rvm"
+    rvm_trust_rvmrcs_flag=1
+    if [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
+      source "/usr/local/rvm/scripts/rvm"
+    fi
+
+    info "prepping apps"
+    shopt -s nullglob
+    for app in ~deployer/apps/* ; do
+      info "prepping $app"
+      cd $app
+      bundle install --deployment --binstubs
+      RACK_ENV=production bundle exec rake db:migrate
+    done
+  '

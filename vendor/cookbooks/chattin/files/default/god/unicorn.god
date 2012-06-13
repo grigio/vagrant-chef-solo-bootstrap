@@ -2,7 +2,11 @@
 
 # Settings
 # ========
-rails_env = ENV['RAILS_ENV'] || ENV['RACK_ENV'] || 'production'
+require 'yaml'
+env = YAML.load_file("/etc/profile.d/env.yaml") rescue {}
+env.merge(ENV.to_hash)
+env['RACK_ENV'] ||= 'production'
+
 
 apps = [
   'chattin-frontend',
@@ -19,11 +23,7 @@ apps.each do |app_name|
     w.group  = "unicorns"
     w.interval = 30.seconds
 
-    w.env = {
-      'RAILS_ROOT' => rails_root,
-      'RAILS_ENV'  => rails_env,
-      'RACK_ENV'   => rails_env,
-    }
+    w.env = env
 
     # NOTE: unicorn needs to be run from the rails root!
     w.start = <<-CMD

@@ -1,0 +1,20 @@
+#!/bin/bash
+source "$( dirname "${BASH_SOURCE[0]}" )/lib/all.sh"
+
+pwd=`pwd`
+
+for app in apps/* ; do
+  info "updating $app"
+  cd $app
+
+  info "checking out master"
+  git checkout master
+
+  info "pulling from master"
+  git pull origin master
+
+  info "bundle installing"
+  bundle install
+
+  cd $pwd
+done

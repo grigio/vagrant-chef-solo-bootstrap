@@ -13,6 +13,8 @@ Vagrant::Config.run do |config|
   config.vm.forward_port 9999, 9999
   config.vm.network :hostonly, "22.22.22.22"
 
+  config.vm.share_folder("v-root", "/vagrant", ".", :nfs => true)
+
   #config.vm.provision :chef_solo do |chef|
   #  chef.cookbooks_path = "cookbooks"
   #  chef.json = JSON.parse(File.open(solo_json, &:read))

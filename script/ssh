@@ -1,0 +1,19 @@
+#!/bin/bash
+
+user_at_host="$1"
+user=`echo $user_at_host | sed -e s/@.*//`
+host=`echo $user_at_host | sed -e s/.*@//`
+
+port="22"
+key_opt=""
+
+if [[ $host == "vagrant" ]]; then
+  host="127.0.0.1"
+  port="2222"
+  key_opt="-i $HOME/.vagrant.d/insecure_private_key"
+  # The host key might change when we instantiate a new VM, so
+  # we remove (-R) the old host key from known_hosts
+  ssh-keygen -R "${host#*@}" 2> /dev/null
+fi
+
+ssh -p "$port" -o 'StrictHostKeyChecking no' $key_opt "$user@$host"

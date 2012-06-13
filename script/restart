@@ -1,0 +1,17 @@
+#!/bin/bash
+source "$( dirname "${BASH_SOURCE[0]}" )/lib/all.sh"
+host=$1
+
+# Usage: ./deploy.sh (SERVER|vagrant)
+: ${1?"Usage: $0 USER@HOST"}
+
+remote_bash "$host" '
+  info "stopping unicorns"
+  sudo god stop unicorns
+  sleep 1
+  info "restarting god"
+  sudo stop god
+  sudo start god
+  info "restarting nginx"
+  sudo /etc/init.d/nginx restart
+'
