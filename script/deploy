@@ -1,4 +1,5 @@
 #!/bin/bash
+DIR="$( dirname "${BASH_SOURCE[0]}" )"
 source "$( dirname "${BASH_SOURCE[0]}" )/lib/all.sh"
 host=$1
 

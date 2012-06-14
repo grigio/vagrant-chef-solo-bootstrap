@@ -14,7 +14,7 @@ for app in apps/* ; do
   git pull origin master
 
   info "bundle installing"
-  bundle install
+  bundle install --no-deployment
 
   cd $pwd
 done

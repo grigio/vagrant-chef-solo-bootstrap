@@ -8,11 +8,17 @@ host=$1
 remote_bash "$host" '
   info "stopping unicorns"
   sudo god stop unicorns
-  sleep 1
+  sleep 2
+
+  info "kill any servivors"
+  kill `ps aux | grep "unicorn master" | cut -d" " -f 2 `
 
   info "restarting god"
   sudo stop god
   sudo start god
+
+  info "waiting 2 seconds for unicorns ..."
+  sleep 2
 
   info "restarting nginx"
   sudo /etc/init.d/nginx restart
