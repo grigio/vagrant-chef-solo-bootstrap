@@ -42,6 +42,10 @@ cookbook_file "/etc/profile.d/env.sh" do
   mode 0755
 end
 
+gem_package "bundler" do
+  action :install
+end
+
 package "nginx" do
   action :install
 end

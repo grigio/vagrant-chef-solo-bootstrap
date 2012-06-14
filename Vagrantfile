@@ -10,7 +10,9 @@ Vagrant::Config.run do |config|
   config.vm.forward_port 22,   2222
   config.vm.forward_port 80,   8080
   config.vm.forward_port 3000, 3030
-  config.vm.forward_port 9999, 9999
+  config.vm.forward_port 9998, 9998
+  config.vm.forward_port 5080, 5080 # Red5 HTTP
+  config.vm.forward_port 1935, 1935 # Red5 RTMP[T]
   config.vm.network :hostonly, "22.22.22.22"
 
   config.vm.share_folder("v-root", "/vagrant", ".", :nfs => true)
