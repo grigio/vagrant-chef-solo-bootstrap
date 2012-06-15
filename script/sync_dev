@@ -21,4 +21,4 @@ remote_bash deployer@vagrant '
     RACK_ENV=development bundle exec rake db:migrate
   done
 '
-script/restart vagrant
+script/restart root@vagrant
