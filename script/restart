@@ -3,9 +3,11 @@ source "$( dirname "${BASH_SOURCE[0]}" )/lib/all.sh"
 host=$1
 
 # Usage: ./deploy.sh (SERVER|vagrant)
-: ${1?"Usage: $0 USER@HOST"}
+: ${1?"Usage: $0 HOSTNAME"}
 
-remote_bash "$host" '
+host=$1
+
+remote_bash "root@$host" '
   info "stopping unicorns"
   sudo god stop unicorns
   sleep 2
