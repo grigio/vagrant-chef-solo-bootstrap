@@ -32,8 +32,7 @@ apps.each do |app_name|
         2> #{rails_root}/log/start-unicorn.stderr
     CMD
 
-    # QUIT gracefully shuts down workers
-    w.stop = "kill -QUIT `cat #{rails_root}/tmp/pids/unicorn.pid`"
+    w.stop = "kill -KILL `cat #{rails_root}/tmp/pids/unicorn.pid`"
 
     # USR2 causes the master to re-create itself and spawn a new worker pool
     w.restart = "kill -USR2 `cat #{rails_root}/tmp/pids/unicorn.pid`"
